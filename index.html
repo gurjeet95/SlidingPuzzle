@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+        var images;
+        var start;
+        var solve;
+        var label;
+        var moves = 0;
+
+        function starts() {
+
+            images = document.getElementsByTagName("img");
+            start = document.getElementById("start");
+            solve = document.getElementById("solve");
+            label = document.getElementById("moves");
+            var arr = new Array(16);
+            for (var i = 0; i < arr.length; i++) {
+                if (i != 15) {
+                    arr[i] = "Puzzle_Images/" + i + ".jpg";
+                } else {
+
+                    arr[i] = "Puzzle_Images/blank.jpg";
+                }
+
+            }
+
+            display(arr);
+
+            function display(array) {
+                for (var k = 0; k < images.length; k++) {
+                    images[k].src = array[k];
+
+                }
+            }
+
+            var arr2 = new Array();
+
+            start.addEventListener("click", shuffle);
+            solve.addEventListener("click", solvedis);
+
+            function solvedis() {
+                for (var k = 0; k < images.length; k++) {
+
+                    images[k].removeEventListener("click", change);
+
+                }
+                moves = 0;
+                label.innerHTML = "Moves:" + moves;
+                display(arr);
+            }
+
+            function shuffle() {
+                moves = 0;
+                label.innerHTML = "Moves:" + moves;
+                arr2 = arr.slice();
+                for (var a = 0; a < 30; a++) {
+                    var random1 = Math.floor(0 + (Math.random() * 16));
+                    var random2 = Math.floor(0 + (Math.random() * 16));
+                    var temp = arr2[random1];
+                    arr2[random1] = arr2[random2];
+                    arr2[random2] = temp;
+
+                }
+                display(arr2);
+
+                for (var k = 0; k < images.length; k++) {
+
+                    images[k].addEventListener("click", change);
+
+                }
+
+            }
+
+            function change() {
+                var img = this.getAttribute("src");
+                var a = arr2.indexOf(img);
+                var k = arr2.indexOf("Puzzle_Images/blank.jpg");
+
+                if (a == 3 || a == 7 || a == 11) {
+                    if (a + 4 == k || a - 4 == k || a - 1 == k) {
+                        images[a].src = arr2[k];
+                        images[k].src = arr2[a];
+                        var temp = arr2[k];
+                        arr2[k] = arr2[a];
+                        arr2[a] = temp;
+                        moves++;
+                    }
+                } else if (a == 4 || a == 8 || a == 12) {
+                    if (a + 4 == k || a - 4 == k || a + 1 == k) {
+                        images[a].src = arr2[k];
+                        images[k].src = arr2[a];
+                        var temp = arr2[k];
+                        arr2[k] = arr2[a];
+                        arr2[a] = temp;
+                        moves++;
+                    }
+                } else {
+                    if (a + 4 == k || a - 4 == k || a - 1 == k || a + 1 == k) {
+                        images[a].src = arr2[k];
+                        images[k].src = arr2[a];
+                        var temp = arr2[k];
+                        arr2[k] = arr2[a];
+                        arr2[a] = temp;
+                        moves++;
+                    }
+                }
+
+                label.innerHTML = "Moves:" + moves;
+                var flag = 0;
+                for (var m = 0; m < arr.length; m++) {
+                    if (arr[m] != arr2[m]) {
+                        flag = 1;
+                        break;
+                    }
+                }
+                if (flag != 1) {
+                    result();
+                }
+
+            }
+
+            function result() {
+                let message = "you solved this puzzle in " + moves + " moves.";
+                let msgplace = document.createElement("h3");
+                msgplace.textContent = message;
+                let container = document.getElementById("wrapper");
+                wrapper.appendChild(msgplace);
+
+                for (var k = 0; k < images.length; k++) {
+
+                    images[k].removeEventListener("click", change);
+
+                }
+
+            }
+
+        }
+        window.addEventListener("load", starts, false);
+    </script>
+</head>
+
+<body>
+    <div class="wrapper" id="wrapper">
+        <h2>Sliding Puzzle</h2>
+        <div class="cf">
+            <img id="yes">
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+            <img>
+        </div>
+        <div class="bottom">
+            <button id="start">Start</button>
+            <button id="solve">Solve</button>
+            <label id="moves">Moves:0</label>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+
+div{
+	width: 292px;
+}
+img{
+	border:1px solid black;
+	max-width:69px ;
+	max-height:51px;
+	width: 25%;
+	float: left;
+	margin-top: 2px;
+	margin-right: 2px;
+}
+
+div.bottom{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 5px;
+}
+
+div.wrapper{
+	background-color: #FF9E01;
+}
+
+button{
+	padding: 5px;
+	width: 60px;
+	cursor: pointer;
+}
+h2{
+	text-align: center;
+	margin:4px 0;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; 
+    display: table; 
+}
+
+.cf:after {
+    clear: both;
+}
